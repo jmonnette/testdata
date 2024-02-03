@@ -1,0 +1,73 @@
+{
+  "departments(5,10)": [
+    {
+      "department_id": 1111,
+      "name": "Electrical Engineering"
+    },
+    {
+      "department_id": 2222,
+      "name": "Marketing"
+    }
+  ],
+  "professors(20,20)": [
+    {
+      "employee_id": 3456,
+      "department_id": 1111,
+      "first_name": "John",
+      "last_name": "Smith"
+    }
+  ],
+  "classes(10,10)": [
+    {
+      "class_id": 1234,
+      "title": "Intro to Basket Weaving",
+      "level(100,101,102,200,201,202)": 200,
+      "professor_id": 3456
+    }
+  ],
+  "students(100,100)": [
+    {
+      "student_id": 2345,
+      "first_name": "Jeff",
+      "last_name": "Monnette",
+      "enrollments(1,10)": [
+        {
+          "class_id": 1234,
+          "enrollment_date(2020-01-01,2023-12-31)": "2020-01-01"
+        }
+      ]
+    }
+  ]
+}
+
+Department names must be realistic college department names rather than random phrases.  Department names must only be used once.  A professor's department_id must be selected from a valid id from the departments array.  A student enrollment's class_id must be selected from a valid id from the classes array.
+
+
+{
+  "person_id": 12345678,
+  "first_name": "Jeff",
+  "last_name": "Monnette",
+  "gender": "M",
+  "ssn", "123-45-6789",
+  "weight_in_lbs": 220,
+  "height_in_inches": 74,
+  "dob(1923-01-01,2010-01-01)": "1978-06-29",
+  "marital_status": "Married",
+  "education(High School, Some College, Bachelor, Masters)": "Some College"
+  "addresses(1,5)": [
+    {
+       "street": "1234 Main St.",
+       "city": "Atlanta",
+       "state": "GA",
+       "zip": "30306"
+    }
+  ],
+  "employment_history(0,10)": [
+    {
+      "company_name": "Fake Co.",
+      "job_title": "The boss",
+      "start_date": "2002-01-01",
+      "end_date": "2005-06-30"
+    }
+  ]
+}
