@@ -68,7 +68,7 @@ Using the JSON object as a template, generate Python3 code that creates an array
 The number of objects to include in the array is specified via a command-line parameter called numObjects.
 
 The Python code should use the Faker library to generate realistic data.
-Use the JSON field names to infer the type of data to generate.
+Use the JSON field names and example data to infer the type of data to generate.
 You can also infer business rules about the data from the field names.
 Unless specifically stated, the values for all fields should be randomly generated (i.e., there should be no hardcoded values unless specifically stated)
 
@@ -87,7 +87,8 @@ You should choose only from these values when generating the data for the field.
 Always exclude this parenthetical from the field name in the generated output JSON.
 
 If the field name contains square brackets, "[]", the value between the square brackets indicates the data type for the field.
-Make sure that the generated value matches the data type when specified.  If not specified, then infer the data type from the example value and the field name.
+Make sure that the generated value matches the data type when specified.
+If the data type is not specified, then generated data type must match the data type of the example value.
 Always exclude the brackets and bracketed text from the field name in the output.
 
 Remember, the part of the parentheticals in the template JSON field names in parentheses are not to be included in the JSON output.
@@ -146,35 +147,39 @@ Functionality was added to take command-line parameters, specifying the number o
 
 #######################
 
-  Using the JSON object as a template, generate a complete JSON schema to use for validation.  Your output should be JSON.
+  Using the JSON object as a template, generate a Python3 validation script using Cerberus.
+  The script will be used to validate JSON documents similar to the example.
+
+  Your only task for now is to generate the Cerberus schema.  We'll get to the rest of the script later.
 
   Use the JSON field names and example values to infer the data types.
   You can also infer business rules about the data from the field names.
 
-  Where possible based on inference from the field name, include regex pattern validations.
+  Where possible based on inference from the field name, include regex pattern validations.  '
+  This should include all date and date-time fields.
 
   For array fields, the digits in parentheses in the field name indicate the range of array sizes to generate.
-  For example, "(1,3)" indicates that there should be 1 to 3 objects in the generated array.
-  Always exclude this parenthetical from the field name in the generated output JSON.
+  For example, "(1,3)" indicates that there should be 1 to 3 objects in the array.
+  Always exclude this parenthetical from the field name in the generated schema as it doesn't exist in the JSON to be validated.
 
   For date fields, the dates in parentheses in the field name indicate the valid date range for the field.
   For example, "(2002-01-01,2003-06-30)" indicates that the date must be between January 1, 2002 and June 30, 2003.
-  Always exclude this parenthetical from the field name in the generated output JSON.
+  Always exclude this parenthetical from the field name in the generated schema.
   If a date range is specified, assume that a custom validator exists that can validate the range.  The range should be included in the schema as a field called date_range.
   If a date range is not specified, do not include the date_range field.
 
   For text fields, the values in parentheses indicate the set of valid values for the field.
-  You should choose only from these values when generating the data for the field.
-  Always exclude this parenthetical from the field name in the generated output JSON.
+  These are the only values allowed for the field.
+  Always exclude this parenthetical from the field name in the generated schema.
 
   If the field name contains square brackets, "[]", the value between the square brackets indicates the data type for the field.
-  Make sure that the generated value matches the data type when specified.  If not specified, then infer the data type from the example value and the field name.
+  Use this value to specify the data type in the generated schema.  If not specified, then infer the data type from the example value and the field name.
   Include regex patterns to validate field lengths based on the specified data types.
-  Always exclude the brackets and bracketed text from the field name in the output.
+  Always exclude the brackets and bracketed text from the field name in the schema.
 
-  Remember, the part of the parentheticals in the template JSON field names in parentheses are not to be included in the JSON output.
-  Remember, the brackets and bracketed text in the field names are not to be included in the JSON output.
-  Remember, you must output the complete JSON schema.
+  Remember, the part of the parentheticals in the template JSON field names in parentheses are not to be included in the schema.
+  Remember, the brackets and bracketed text in the field names are not to be included in the schema.
+  Remember, you must output the complete Cerberus and valid Cerberus schema.  Regex validations use a field called "regex".
 
   Please consider these additional rules when generating the schema:
 
@@ -186,8 +191,15 @@ Functionality was added to take command-line parameters, specifying the number o
 
  - In addition to the values provided, the SpecialComment field can also be blank
  - All Balance and Amount fields should greater than or equal to 0
- - CountryCode should be an ISO-3166-1 two-letter country code and should be validated using an enum
- - TimeStamp should be a date and time field within the last 90 days
+ - CountryCode should be validated using a validator called country
+ - TimeStamp should be a date-time field within the last 90 days
  - DateClosed is not required
  - MiddleName is not required
- - State should be a valid two letter US postal abbreviation and should be validated using an enum
+ - State should be a validated using a custom validator called us_state
+
+
+Now let's implement a custom Cerberus validator to handle the following use cases:
+
+1) date_range: Validate that the date is between the two values passed in as a list
+2) country: Validate that the country is a valid 2 character ISO-3166-1 code using Python code instead of an enumeration
+3) us_state: Validate that the state is a valid 2 character US postal abbreviation using Python code instead of an enumeration
