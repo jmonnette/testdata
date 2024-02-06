@@ -62,7 +62,7 @@ def generate_json(numObjects):
             "ResidenceCode":"1",
             "SecondLineofAddress":"",
             "SocialSecurityNumber":fake.ssn(),
-            "State":fake.state_abbr(),
+            "State":fake.state_abbr(include_freely_associated_states = False),
             "Surname":fake.last_name(),
             "TelephoneNumber":fake.pystr_format(string_format='###-###-####'),
             "Accounts":account_list

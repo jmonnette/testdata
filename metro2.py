@@ -59,7 +59,7 @@ schema = {
                 "OriginalCharge-offAmount": {"type": "float", "min": 0},
                 "DateofAccountInformation": {"type": "string", "regex": "^\d{4}-\d{2}-\d{2}$"},
                 "FCRACompliance-DateofFirstDelinquency": {"type": "string", "regex": "^\d{4}-\d{2}-\d{2}$"},
-                "DateClosed": {"type": "string", "regex": "^\d{4}-\d{2}-\d{2}$", "required": False, "date_range": ["1950-01-01","2024-01-01"]},
+                "DateClosed": {"type": "string", "regex": "^\d{4}-\d{2}-\d{2}$", "required": False, "date_range": ["1950-01-01","2024-02-05"]},
                 "DateofLastPayment": {"type": "string", "regex": "^\d{4}-\d{2}-\d{2}$"},
                 "InterestTypeIndicator": {"type": "string", "allowed": ["F", "V"]},
                 "ConsumerTransactionType": {"type": "string"},
