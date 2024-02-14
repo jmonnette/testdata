@@ -3,7 +3,7 @@ import random
 import datetime
 import sys
 from faker import Faker
-from metro2 import portfolio_type_to_account_type
+import metro2
 
 def generate_json(numObjects):
     fake = Faker()
@@ -13,7 +13,7 @@ def generate_json(numObjects):
         account_list = []
         for i in range(random.randint(0,20)):
             portfolio_type = random.choice(['R','I','O','M','C'])
-            account_type = portfolio_type_to_account_type(portfolio_type)
+            account_type = metro2.portfolio_type_to_account_type(portfolio_type)
 
             account = {
                 "ProcessingIndicator":1,
@@ -31,7 +31,7 @@ def generate_json(numObjects):
                 "TermsFrequency":random.choice(['D','P','W','B','E','M','L','Q','T','S','Y']),
                 "ScheduledMonthlyPaymentAmount":random.uniform(0, 100),
                 "ActualPaymentAmount":random.uniform(0, 100),
-                "PaymentHistoryProfile":"",
+                "PaymentHistoryProfile":metro2.generate_payment_history_profile(),
                 "SpecialComment":random.choice(['M','AP','BL','CI','AM','']),
                 "ComplianceConditionCode":random.choice(['XB','XC','XF','XG','XH','XR']),
                 "CurrentBalance":random.uniform(0, 10000),
@@ -61,7 +61,7 @@ def generate_json(numObjects):
             "Postal-ZipCode":fake.zipcode(),
             "ResidenceCode":"1",
             "SecondLineofAddress":"",
-            "SocialSecurityNumber":fake.ssn(),
+            "SocialSecurityNumber":fake.unique.ssn(),
             "State":fake.state_abbr(include_freely_associated_states = False),
             "Surname":fake.last_name(),
             "TelephoneNumber":fake.pystr_format(string_format='###-###-####'),

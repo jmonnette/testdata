@@ -28,7 +28,7 @@
       "TermsFrequency(D,P,W,B,E,M,L,Q,T,S,Y)":"D",
       "ScheduledMonthlyPaymentAmount":100.00,
       "ActualPaymentAmount":100.00,
-      "PaymentHistoryProfile":"",
+      "PaymentHistoryProfile[Char(24)]":"02010200XDZZA2--",
       "SpecialComment(M,AP,BL,CI,AM)":"",
       "ComplianceConditionCode(XB,XC,XF,XG,XH,XR)":"XB",
       "CurrentBalance":10000.00,
@@ -60,6 +60,7 @@
 - MiddleName can be blank or a randomly generated name
 - DateOpened must be an earlier date than DateClosed
 - AccountType should be populated using a function called portfolio_type_to_account_type in a module called metro2.  This function takes the PortfolioType as a parameter.
+- The data represented by the JSON is Metro 2 data.  Unless you've been given another rule to follow, you can use your knowledge of Metro 2 to help make the data realistic.
 
 #################
 

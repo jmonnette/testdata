@@ -74,6 +74,9 @@ schema = {
     }
 }
 
+def generate_payment_history_profile():
+    return ''.join(random.choice('012XDZA-') for _ in range(24))
+
 def portfolio_type_to_account_type(portfolio_type):
 
     codes_for_account_type = portfolio_types.get(portfolio_type)
